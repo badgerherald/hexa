@@ -130,7 +130,7 @@ get_template_part('revelry/header', 'revelry');
                 for ($photo_id = 117856; $photo_id <= 117906; $photo_id++)
                     ?>
                     <div class="media-thumbnail">
-                        <?php echo wp_get_attachment_image($photo_id, 'square', false, array('class'=>'wp-image-'.$photo_id); ?>
+                        <?php echo wp_get_attachment_image($photo_id, 'square', false, array('class'=>'wp-image-'.$photo_id)); ?>
                     </div>
                     <?php
                 endfor;
