@@ -43,17 +43,12 @@ get_template_part('revelry/header', 'revelry');
         <div class="wrapper">
         <h1>About</h1>
             <p>
-                Curabitur ullamcorper ultricies nisi. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. Donec posuere vulputate arcu. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus.
+                University of Wisconsin will host the third annual Revelry Music and Arts Festival May 2, 2015 with headliners Chance the Rapper and Chainsmokers. The event, also featuring local artists, art installations and Madison’s food carts will be held on grounds spanning from Library Mall to Memorial Union.
             </p>
             <p>
-                Phasellus blandit leo ut odio. Nunc egestas, augue at pellentesque laoreet, felis eros vehicula leo, at malesuada velit leo quis pede. Donec mollis hendrerit risus. Sed a libero.
+                The Badger Herald is an official partner of the Reverly Music and Arts Festival.
             </p>
-            <p>
-                Praesent ac massa at ligula laoreet iaculis. In consectetuer turpis ut velit. Donec vitae sapien ut libero venenatis faucibus. Pellentesque commodo eros a enim.
-            </p>
-            <p>
-                Nunc egestas, augue at pellentesque laoreet, felis eros vehicula leo, at malesuada velit leo quis pede. Ut varius tincidunt libero. Mauris sollicitudin fermentum libero. Nulla facilisi.
-            </p>
+            <?php echo wp_get_attachment_image(117933, 'large', false); ?>
         </div>
     </div>
     <div id="news" class="content-block block">
@@ -130,6 +125,17 @@ get_template_part('revelry/header', 'revelry');
     <div id="photos" class="content-block block">
         <div class="wrapper">
         <h1>Photos</h1>
+            <div class="media-list showcase-block">
+            <?php
+                for ($photo_id = 117856; $photo_id <= 117906; $photo_id++)
+                    ?>
+                    <div class="media-thumbnail">
+                        <?php echo wp_get_attachment_image($photo_id, 'square', false, array('class'=>'wp-image-'.$photo_id); ?>
+                    </div>
+                    <?php
+                endfor;
+            ?>
+            </div>
         </div>
     </div>
     <div id="tickets" class="content-block block">
