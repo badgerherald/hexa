@@ -48,7 +48,7 @@ get_template_part('revelry/header', 'revelry');
             <p>
                 The Badger Herald is an official partner of the Reverly Music and Arts Festival.
             </p>
-            <?php echo wp_get_attachment_image(117933, 'large', false); ?>
+            <?php echo wp_get_attachment_image(117933, 'medium', false); ?>
         </div>
     </div>
     <div id="news" class="content-block block">
@@ -116,6 +116,7 @@ get_template_part('revelry/header', 'revelry');
         ?>
         </div>
     </div>
+    <?php exa_block('billboard'); ?>
     <div id="sitemap" class="content-block block">
         <div class="wrapper">
             <h1>Site Map</h1>
@@ -128,6 +129,8 @@ get_template_part('revelry/header', 'revelry');
             <div class="media-list showcase-block">
             <?php
                 for ($photo_id = 117856; $photo_id <= 117906; $photo_id++) :
+                    //upload skipped 1 id, probably something else got it mid upload
+                    if ($photo_id == 117886) continue;
                     ?>
                     <div class="media-thumbnail">
                         <?php echo wp_get_attachment_image($photo_id, 'square', false, array('class'=>'wp-image-'.$photo_id)); ?>
