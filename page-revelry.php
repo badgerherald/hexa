@@ -127,7 +127,7 @@ get_template_part('revelry/header', 'revelry');
         <h1>Photos</h1>
             <div class="media-list showcase-block">
             <?php
-                for ($photo_id = 117856; $photo_id <= 117906; $photo_id++)
+                for ($photo_id = 117856; $photo_id <= 117906; $photo_id++) :
                     ?>
                     <div class="media-thumbnail">
                         <?php echo wp_get_attachment_image($photo_id, 'square', false, array('class'=>'wp-image-'.$photo_id)); ?>
