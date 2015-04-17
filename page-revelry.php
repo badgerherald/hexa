@@ -41,14 +41,18 @@ get_template_part('revelry/header', 'revelry');
     </div>
     <div id="about" class="content-block block">
         <div class="wrapper">
-        <h1>About</h1>
-            <p>
-                University of Wisconsin will host the third annual Revelry Music and Arts Festival May 2, 2015 with headliners Chance the Rapper and Chainsmokers. The event, also featuring local artists, art installations and Madison’s food carts will be held on grounds spanning from Library Mall to Memorial Union.
-            </p>
-            <p>
-                The Badger Herald is an official partner of the Reverly Music and Arts Festival.
-            </p>
-            <?php echo wp_get_attachment_image(117933, 'medium', false); ?>
+            <h1>About</h1>
+            <div class="left-col">
+                <p>
+                    University of Wisconsin will host the third annual Revelry Music and Arts Festival May 2, 2015 with headliners Chance the Rapper and Chainsmokers. The event, also featuring local artists, art installations and Madison’s food carts will be held on grounds spanning from Library Mall to Memorial Union.
+                </p>
+                <p>
+                    The Badger Herald is an official partner of the Reverly Music and Arts Festival.
+                </p>
+            </div>
+            <div class="right-col">
+                <?php echo wp_get_attachment_image(117933, 'medium', false); ?>
+            </div>
         </div>
     </div>
     <div id="news" class="content-block block">
@@ -116,7 +120,20 @@ get_template_part('revelry/header', 'revelry');
         ?>
         </div>
     </div>
-    <?php exa_block('billboard'); ?>
+    <div class="block">
+    <div class="wrapper">
+    
+        <div class="ad billboard-ad">
+            <?php $DoubleClick->place_ad('bh:billboard','970x250',array('desktop','xl')); ?> 
+        </div>
+
+        <div class="ad mobile-ad">
+            <?php $DoubleClick->place_ad('bh:leaderboard','300x250',array('mobile')); ?>
+        </div>
+
+    </div>
+
+</div>
     <div id="sitemap" class="content-block block">
         <div class="wrapper">
             <h1>Site Map</h1>
@@ -144,11 +161,35 @@ get_template_part('revelry/header', 'revelry');
     <div id="tickets" class="content-block block">
         <div class="wrapper">
             <h1>Tickets</h1>
-            <ul>
-                <li><span class="date">March 16 - 22</span> <span>$5 for students, $25 for non-students</span></li>
-                <li><span class="date">March 22 - May 1</span> <span>$10 for students, $30 for non-students</span></li>
-                <li><span class="date">May 2</span> <span>$15 for students, $35 for non-students</span></li>
-            </ul>
+            <div class="left-col">
+                <p>
+                    <strong>On sale now!</strong> $10 (for students) and $30 for the general public.
+                </p>
+                <p>
+                    You must have a valid student ID the day of Revelry to buy a student ticket. Prices for tickets will go up the day of the concert. General public is 18+.
+                </p>
+                <p>
+                    You can purchase tickets here: <a href="http://bit.ly/1Fr4BjD" title="Revelry Tickets">http://bit.ly/1Fr4BjD</a>
+                    <br>
+                    Student password is: <strong>Revelry2k15</strong>
+                </p>
+                <p>
+                    Don't want to pay ticketing fees? Pick up your ticket at the <strong>Memorial Union box office</strong> instead!
+                </p>
+                <?php
+                /*
+                <ul>
+                    <li><span class="date">March 16 - 22</span> <span>$5 for students, $25 for non-students</span></li>
+                    <li><span class="date">March 22 - May 1</span> <span>$10 for students, $30 for non-students</span></li>
+                    <li><span class="date">May 2</span> <span>$15 for students, $35 for non-students</span></li>
+                </ul>
+                */
+               ?>
+            </div>
+            <div class="right-col">
+                <div class="ad">
+                    <?php $DoubleClick->place_ad('bh:leaderboard','300x250',array('mobile','tablet','xl','desktop')); ?>
+                </div>
         </div>
     </div>
 </div>

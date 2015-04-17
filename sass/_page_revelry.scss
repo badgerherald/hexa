@@ -357,10 +357,42 @@
                 }
             }
         }
+        .content-block {
+            .left-col, .right-col {
+                width: 360px;
+                float: left;
+                .ad {
+                    float: right;
+                }
+            }
+            .left-col {
+                margin-right: 20px;
+            }
+        }
     }
     .article-card {
         .thumbnail img {
             width: 380px;
+        }
+    }
+}
+
+@include breakpoint(desktop) {
+    #revelry {
+        .content-block {
+            .left-col, .right-col {
+                width: 500px;
+            }
+        }
+    }
+}
+
+@include breakpoint (xl) {
+    #revelry {
+        .content-block {
+            .left-col, .right-col {
+                width: 580px;
+            }
         }
     }
 }
