@@ -170,7 +170,7 @@ get_template_part('revelry/header', 'revelry');
             <h1>Tickets</h1>
             <div class="left-col">
                 <p>
-                    <strong>On sale now!</strong> $10 (for students) and $30 for the general public.
+                    <strong>Tickets are on sale now.</strong> $10 (for students) and $30 for the general public.
                 </p>
                 <p>
                     You must have a valid student ID the day of Revelry to buy a student ticket. Prices for tickets will go up the day of the concert. General public is 18+.
