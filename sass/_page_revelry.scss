@@ -360,6 +360,7 @@
         .content-block {
             .left-col, .right-col {
                 width: 360px;
+                width: calc(50% - 10px);
                 float: left;
                 .ad {
                     float: right;
@@ -367,6 +368,9 @@
             }
             .left-col {
                 margin-right: 20px;
+                .ad {
+                    float: none;
+                }
             }
         }
     }

@@ -49,9 +49,12 @@ get_template_part('revelry/header', 'revelry');
                 <p>
                     The Badger Herald is an official partner of the Reverly Music and Arts Festival.
                 </p>
+                <div class="ad">
+                    <?php $DoubleClick->place_ad('bh:leaderboard','300x250',array('tablet', 'desktop', 'xl')); ?>
+                </div>
             </div>
-            <div class="right-col">
-                <?php echo wp_get_attachment_image(117933, 'medium', false); ?>
+            <div class="right-col" style="text-align:center;">
+                <?php echo wp_get_attachment_image(117933, 'medium', false, array('style'=>'margin: 0 auto;')); ?>
             </div>
         </div>
     </div>
