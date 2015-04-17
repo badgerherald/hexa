@@ -49,7 +49,7 @@ get_template_part('revelry/header', 'revelry');
                 <p>
                     The Badger Herald is an official partner of the Reverly Music and Arts Festival.
                 </p>
-                <div class="ad">
+                <div class="ad" style="margin-top: 36px;">
                     <?php $DoubleClick->place_ad('bh:leaderboard','300x250',array('tablet', 'desktop', 'xl')); ?>
                 </div>
             </div>
@@ -128,6 +128,10 @@ get_template_part('revelry/header', 'revelry');
     
         <div class="ad billboard-ad">
             <?php $DoubleClick->place_ad('bh:billboard','970x250',array('desktop','xl')); ?> 
+        </div>
+
+        <div id='ad-leaderboard' class='top-leaderboard'>
+            <?php $DoubleClick->place_ad('bh:leaderboard','728x90',array('tablet')); ?>
         </div>
 
         <div class="ad mobile-ad">
