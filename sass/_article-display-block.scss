@@ -1,0 +1,19 @@
+.taboola-below-article {
+	width: 100%;
+	margin: 32px 0 24px;
+	background: #fff;
+	padding: 24px 20px;
+	font-size: 12px;
+}
+
+@include breakpoint(desktop) {
+	.taboola-below-article {
+		width: 780px;
+	}
+}
+
+@include breakpoint(xl) {
+	.taboola-below-article {
+		width: 780px;	
+	}
+}
