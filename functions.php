@@ -18,16 +18,7 @@ add_action('wp_enqueue_scripts', 'hexa_scripts');
 
 function hexa_below_article() { ?>
 
-	<div id="taboola-below-article-thumbnails" class="taboola-below-article"></div>
-	<script type="text/javascript">
-		window._taboola = window._taboola || [];
-		_taboola.push({
-		  mode: 'alternating-thumbnails-a',
-		  container: 'taboola-below-article-thumbnails',
-		  placement: 'Below Article Thumbnails',
-		  target_type: 'mix'
-		});
-	</script>
+	<?php include('inc/block-taboola.php'); ?>
 
 <?php }
 add_action('exa_below_article','hexa_below_article');
