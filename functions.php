@@ -72,3 +72,14 @@ function hexa_taboola_footer_scripts() {
 
 }
 add_action('wp_footer', 'hexa_taboola_footer_scripts');
+
+
+/**
+ *
+ */
+function hexa_were_hiring($content) {
+
+	$content .= "<h4 style='margin-top:60px;'><em>We're hiring! Check out our jobs page. Applications due April 27th. <a href='https://badgerherald.com/about/get-involved/hiring/'>badgerherald.com/about/get-involved/hiring</a>.</em></h4>";
+	return $content;
+}
+add_filter('the_content', 'hexa_were_hiring');
