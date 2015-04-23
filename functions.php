@@ -75,7 +75,8 @@ add_action('wp_footer', 'hexa_taboola_footer_scripts');
 
 
 /**
- *
+ * Yo, we're hiring.
+ * 
  */
 function hexa_were_hiring($content) {
 
@@ -83,3 +84,27 @@ function hexa_were_hiring($content) {
 	return $content;
 }
 add_filter('the_content', 'hexa_were_hiring');
+
+function hexa_analytic_title( $title, $id = null ) {
+
+	global $AnalyticBridge;
+
+
+	if( is_user_logged_in() && @current_user_can('edit_post') && array_key_exists('AnalyticBridge', $GLOBALS) ) {
+
+		$today = $AnalyticBridge->metric($id,'ga:sessions','today');
+		$yesterday = $AnalyticBridge->metric($id,'ga:sessions','yesterday');
+
+		$title = "<span class='stats-today'>$today</span>$title";
+
+		if($yesterday) {
+			$title = "<span class='stats-yesterday'>$yesterday</span>$title";
+		}
+
+	}
+
+    return $title;
+}
+add_filter( 'the_title', 'hexa_analytic_title', 10, 2 );
+
+
