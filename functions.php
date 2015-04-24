@@ -95,10 +95,15 @@ function hexa_analytic_title( $title, $id = null ) {
 		$today = $AnalyticBridge->metric($id,'ga:sessions','today');
 		$yesterday = $AnalyticBridge->metric($id,'ga:sessions','yesterday');
 
-		$title = "<span class='stats-today'>$today</span>$title";
-
-		if($yesterday) {
-			$title = "<span class='stats-yesterday'>$yesterday</span>$title";
+		
+		if($today|| $yesterday) {
+			
+			if(!$today) $today = 0;
+			$title = "$title<span class='title-stats'><span class='stats-today'>t:$today</span>";
+			if($yesterday) {
+				$title = "$title &middot; <span class='stats-yesterday'>y:$yesterday</span>";
+			}
+			$title .= "</span>";
 		}
 
 	}

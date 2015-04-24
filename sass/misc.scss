@@ -2,23 +2,26 @@
 // Here for now.
 // Style for analytic bridge thinggies.
 .stats-today {
-	background: red;
+	font-family: monospace;
+	font-size: 13px;
 	display: inline-block;
 	padding: 0 .1em;
 	border-radius: 0px 5px 5px 0;
-	margin-right: 10px;
-	background: #247ad0;
-	color: #fff;
+	opacity: .7;
 }
 
 .stats-yesterday {
-	background: red;
+	font-family: monospace;
+	font-size: 13px;
 	display: inline-block;
 	padding: 0 .1em;
 	border-radius: 5px 0px 0px 5px;
 	margin-right: 0px;
-	background: #6ab5ff;
-	color: #fff;
+	opacity:.3;
+}
+
+.title-stats {
+	padding-left : 10px;
 }
 
 
