@@ -89,8 +89,7 @@ function hexa_analytic_title( $title, $id = null ) {
 
 	global $AnalyticBridge;
 
-
-	if( is_user_logged_in() && @current_user_can('edit_post') && array_key_exists('AnalyticBridge', $GLOBALS) ) {
+	if( !is_admin() && is_user_logged_in() && @current_user_can('edit_post') && array_key_exists('AnalyticBridge', $GLOBALS) ) {
 
 		$today = $AnalyticBridge->metric($id,'ga:sessions','today');
 		$yesterday = $AnalyticBridge->metric($id,'ga:sessions','yesterday');
