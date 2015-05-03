@@ -108,10 +108,20 @@ function hexa_dispaystaff( $atts ) {
 add_shortcode( 'displaystaff', 'hexa_dispaystaff' );
 
 // Add a body class to target styling.
-
 function about_class($classes) {
-	$classes[] = 'about-page';
+	
+	global $post;
+
+	if($post->post_parent == 0) 
+		return $classes;
+
+  	$post_data = get_post($post->post_parent);
+
+	if($post_data->post_name == "about") {
+		$classes[] = 'about-page';
+	}
 	return $classes;
+
 } add_filter('body_class','about_class');
 
 
