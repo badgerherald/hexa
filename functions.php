@@ -1,5 +1,23 @@
 <?php
 
+
+/**
+ * ================================================================================================
+ *   #region: includes
+ * ================================================================================================
+ */
+
+
+
+/**
+ * Load more functions for develop enviornment.
+ * 
+ * Contents:
+ *   - exa_dev_attachment_url()				(filter: wp_get_attachment_url)
+ */
+include_once('inc/functions-staff-page.php');
+
+
 /**
  * Enqueue hexa scripts and styles.
  * 
@@ -83,7 +101,7 @@ function hexa_were_hiring($content) {
 	$content .= "<h4 style='margin-top:60px;'><em>We're hiring! Check out our jobs page. Applications due April 27th. <a href='https://badgerherald.com/about/get-involved/hiring/'>badgerherald.com/about/get-involved/hiring</a>.</em></h4>";
 	return $content;
 }
-add_filter('the_content', 'hexa_were_hiring');
+// add_filter('the_content', 'hexa_were_hiring');
 
 function hexa_analytic_title( $title, $id = null ) {
 
@@ -110,5 +128,7 @@ function hexa_analytic_title( $title, $id = null ) {
     return $title;
 }
 add_filter( 'the_title', 'hexa_analytic_title', 10, 2 );
+
+
 
 
