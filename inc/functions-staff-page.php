@@ -54,7 +54,7 @@ function hexa_dispaystaff( $atts ) {
 		
 		// Position
 		$return .= "<span class='staff-box-current-position'>";
-		get_hrld_author("hrld_current_position",$staff);
+		$return .= get_hrld_author("hrld_current_position",$staff);
 		$return .= "</span>";
 
 		// Twitter and more.
@@ -73,13 +73,13 @@ function hexa_dispaystaff( $atts ) {
 				$return .= "<div class='staff-box-more-hover-card'>";
 					if(hrld_author_has("hrld_staff_description",$staff)) {
 						$return .= "<p class='staff-box-more-description'>";
-							get_hrld_author("hrld_staff_description",$staff);
+							$return .= get_hrld_author("hrld_staff_description",$staff);
 						$return .= "</p>";
 					}
 
 					if(hrld_author_has("hrld_staff_semesters",$staff)) {
 						$return .= "<p> Semesters at the Herald: ";
-						get_hrld_author("hrld_staff_semesters",$staff);
+						$return .= get_hrld_author("hrld_staff_semesters",$staff);
 						$return .= ".</p>";
 					}
 					
