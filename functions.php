@@ -28,7 +28,7 @@ function hexa_count_campaign($html, $charge_response) {
 		'email' => $charge_response['name']
 	);
 
-	$payment_ids = get_post_meta($post->ID,'_stripe_payment_ids');
+	$payment_ids = get_post_meta($post->ID,'_stripe_payment_ids',true);
 
 	if( !in_array($charge_response['id'],$payment_ids) ) {
 
@@ -38,6 +38,58 @@ function hexa_count_campaign($html, $charge_response) {
 		update_post_meta($post->ID,'_stripe_payment_ids',$payment_ids);
 
 	}
+
+
+    // This is copied from the original output so that we can just add in our own details
+    $html = '<div class="sc-payment-details-wrap">';
+          
+    $html .= '<p>' . __( 'Congratulations. Your payment went through!', 'sc' ) . '</p>' . "\n";
+             
+    $html .= '<p class="stripe-payment-details"><strong>' . __( 'Total Donation: ', 'sc' ) . sc_stripe_to_formatted_amount( $charge_response->amount, $charge_response->currency ) . ' ' . 
+            strtoupper( $charge_response->currency ) . '</strong>' . "<br/><br/>\n";
+      
+    $html .= 'Your transaction ID is: ' . $charge_response->id . "<br/><br/>\n";
+   
+    //Our own new details
+    // Let's add the last four of the card they used and the expiration date
+    $html .= 'Card: ****-****-****-' . $charge_response->source->last4 . '<br>';
+    $html .= 'Expiration: ' . $charge_response->source->exp_month . '/' . $charge_response->source->exp_year . '</p>';
+      
+
+    // We can show the Address provided - this requires shipping="true" in our shortcode
+    if( ! empty( $charge_response->source->address_line1 ) ) {
+        $html .= '<p>Address Line 1: ' . $charge_response->source->address_line1 . '</p>';
+    }
+      
+    if( ! empty( $charge_response->source->address_line2 ) ) {
+        $html .= '<p>Address Line 2: ' . $charge_response->source->address_line2 . '</p>';
+    }
+      
+    if( ! empty( $charge_response->source->address_city ) ) {
+        $html .= '<p>Address City: ' . $charge_response->source->address_city . '</p>';
+    }
+      
+    if( ! empty( $charge_response->source->address_state ) ) {
+        $html .= '<p>Address State: ' . $charge_response->source->address_state . '</p>';
+    }
+      
+    if( ! empty( $charge_response->source->address_zip ) ) {
+        $html .= '<p>Address Zip: ' . $charge_response->source->address_zip . '</p>';
+    }
+ 
+	$html .= "<p>Thank you for supporting student journalism! We think you're pretty awesome. ";
+	$html .= "<img style='margin-left: 3px; margin-right: 3px; vertical-align: middle; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;' src='http://badgerherald.com/wordpress/wp-content/plugins/wp-emoji-one/icons/1F63B.png' alt='' width='20' height='20' /></p>";
+
+	$html .= "<p><a href='https://twitter.com/intent/tweet?button_hashtag=GiveHerald' class='twitter-hashtag-button' data-size='large' data-related='badgerherald,heraldalumni' data-url='http://badgerherald.com/donate'>Tweet #GiveHerald</a></p>";
+	$html .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+	
+	$html .= "<div></div>";
+
+    $html .= exa_get_sharebar();
+
+    $html .= '</div>';
+      
+    return $html;
 
 	return $html;
 
