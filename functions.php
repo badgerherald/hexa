@@ -25,7 +25,9 @@ function hexa_count_campaign($html, $charge_response) {
 	$payment_details = array( 
 		'charge' => $charge_response['amount'],
 		'id' => $charge_response['id'],
-		'email' => $charge_response['name']
+		'email' => $charge_response['source']['name'],
+		'name' => $charge_response['metadata']['fullname'],
+		'keep_anon' => $charge_response['metadata']['keep_anon']
 	);
 
 	$payment_ids = get_post_meta($post->ID,'_stripe_payment_ids',true);
@@ -55,7 +57,6 @@ function hexa_count_campaign($html, $charge_response) {
     $html .= 'Card: ****-****-****-' . $charge_response->source->last4 . '<br>';
     $html .= 'Expiration: ' . $charge_response->source->exp_month . '/' . $charge_response->source->exp_year . '</p>';
       
-
     // We can show the Address provided - this requires shipping="true" in our shortcode
     if( ! empty( $charge_response->source->address_line1 ) ) {
         $html .= '<p>Address Line 1: ' . $charge_response->source->address_line1 . '</p>';
@@ -85,11 +86,9 @@ function hexa_count_campaign($html, $charge_response) {
 	
 	$html .= "<div></div>";
 
-    $html .= exa_get_sharebar();
+    //$html .= exa_get_sharebar();
 
     $html .= '</div>';
-      
-    return $html;
 
 	return $html;
 
@@ -126,6 +125,7 @@ function hexa_stripe_print_stripe_total( $atts ) {
 	return $ret;
 
 } add_shortcode( 'stripe_campaign_total', 'hexa_stripe_print_stripe_total' );
+
 
 /**
  * Enqueue hexa scripts and styles.

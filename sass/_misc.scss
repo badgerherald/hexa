@@ -73,7 +73,32 @@
 	}
 }
 
+	.sc-checkout-form {
+
+		max-width: 300px;
+		background: white;
+		margin-top: 0;
+
+	}
+
+	.sc-form-group {
+		margin-bottom: 0;
+		padding:18px 20px 0px;
+		border-bottom: 1px solid $hrld-dark-grey;
+		font-size: 16px;
+		line-height: 16px;
+		font-family: $headline;
+		font-weight: normal;
+	}
+
+	.sc-payment-btn {
+		margin:20px;
+	}
+
 @include breakpoint(tablet) {
+	.sc-checkout-form {
+		margin-left:80px;
+	}
 	.stripe-campaign-ticker {
 		margin-left:80px;
 	}
@@ -82,9 +107,8 @@
 			margin-left: 80px;
 		}
 	}
-	.sc-payment-btn, .sc-form-group {
-		margin-left:80px;
-	}
+
+
 }
 
 
