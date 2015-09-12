@@ -240,7 +240,7 @@ function hexa_analytic_title( $title, $id = null ) {
 
     return $title;
 }
-add_filter( 'the_title', 'hexa_analytic_title', 10, 2 );
+// add_filter( 'the_title', 'hexa_analytic_title', 10, 2 );
 
 
 
