@@ -15,7 +15,8 @@
  * Contents:
  *   - exa_dev_attachment_url()				(filter: wp_get_attachment_url)
  */
-include_once('inc/functions-staff-page.php');
+include_once('inc/functions/staff-page.php');
+include_once('inc/functions/ads.php');
 
 
 function hexa_count_campaign($html, $charge_response) {
