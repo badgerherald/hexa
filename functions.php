@@ -17,6 +17,7 @@
  */
 include_once('inc/functions/staff-page.php');
 include_once('inc/functions/ads.php');
+include_once('inc/functions/redirects.php');
 
 
 function hexa_count_campaign($html, $charge_response) {
