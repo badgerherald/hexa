@@ -1,7 +1,9 @@
 <?php
 
 
-get_header('minimal');
+get_header();
+get_template_part('inc/blocks/menu-search-bar');
+get_template_part('inc/blocks/header');
 ?>
 
 <div class="block style-block" style="margin-top:200px;margin-bottom:200px">

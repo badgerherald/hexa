@@ -17,8 +17,9 @@
  * @since Twenty Thirteen 1.0
  */
 
-get_header(); 
-
+get_header();
+get_template_part('inc/blocks/menu-search-bar');
+get_template_part('inc/blocks/header');
 ?>	
 
 	<header id="section-header" class="<?php echo $classes ?> clearfix">
