@@ -11,7 +11,6 @@
  * 
  */
 
-
 /**
  * Shortcode for displaying pretty mugs on the staff page.
  * 
@@ -28,13 +27,9 @@ function hexa_dispaystaff( $atts ) {
 
     $return = "<div class='staff-container'>";
     
-	$i = 0;
 	foreach($staffArray as $staff) :
-		$classes = "";
-		if($i%2!=0) {
-			$classes .= "odd ";
-		} $i+=1;
 
+		// Turn usernames to ids.
 		if( is_string($staff) ) {
 			$user = get_user_by('login', $staff);
 			if (!$user) {
@@ -44,62 +39,51 @@ function hexa_dispaystaff( $atts ) {
 		}
 
 		$return .= "<div class='staff-box'>";
-		$aMug = get_wp_user_avatar_src($staff, 'small-thumbnail');
+		$muglink = get_wp_user_avatar_src($staff, 'small-thumbnail');
 		
 		// Mug
-		$return .= "<div class='staff-about-mug-box'><img src='$aMug' /></div>";
+		$return .= "<img class='mug' src='$muglink' />";
+
+		$return .= "<div class='profile'>";
 
 		// Name
-		$return .= "<span class='staff-box-name'>" . get_the_author_meta("display_name",$staff) . "</span>";
-		
-		// Position
-		$return .= "<span class='staff-box-current-position'>";
-		$return .= get_hrld_author("hrld_current_position",$staff);
-		$return .= "</span>";
+		$return .= "<h2 class='name'>" . get_the_author_meta("display_name",$staff);
 
-		// Twitter and more.
-
-		$return .= "<span class='staff-box-twitter-more'>";
-			// If twitter
 			if(hrld_author_has("hrld_twitter_handle",$staff)) {
 				$twitter_handle = get_hrld_author("hrld_twitter_handle",$staff);
-				$return .= "<a href='https://twitter.com/$twitter_handle' class='twitter-follow-button' data-show-count='false' data-show-screen-name='false'>Follow @$twitter_handle</a>";
-				$return .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+				$return .= "<a href='https://twitter.com/$twitter_handle' class='icon-twitter-bird'></a>";
 			}
-			// More
-			$return .= "<div class='staff-box-more'>";
-				$return .= "<span class='staff-box-more-button'>More<span class='staff-box-more-arrow'></span></span>";
-				$return .= "<div class='staff-box-more-hover $classes'>";
-				$return .= "<div class='staff-box-more-hover-card'>";
-					if(hrld_author_has("hrld_staff_description",$staff)) {
-						$return .= "<p class='staff-box-more-description'>";
-							$return .= get_hrld_author("hrld_staff_description",$staff);
-						$return .= "</p>";
-					}
 
-					if(hrld_author_has("hrld_staff_semesters",$staff)) {
-						$return .= "<p> Semesters at the Herald: ";
-						$return .= get_hrld_author("hrld_staff_semesters",$staff);
-						$return .= ".</p>";
-					}
-					
-					$return .= "<p class='staff-box-more-email'>";
-						$return .= "<a href='mailto:" . get_the_author_meta( "email", $staff ) . "'>" . get_the_author_meta( "email", $staff ) . "</a>";
-						if(hrld_author_has("hrld_staff_extension",$staff)) {
-							$return .= "<br/>608-257-4712 " . get_hrld_author("hrld_staff_extension",$staff);
-						}
-					$return .= "</p>";
-				$return .= "</span>";
-				$return .= "</div>";
-				$return .= "</div>";
-			$return .= "</div>";
-		$return .= "</span>";
-			
+		$return .= "</h2>";
+		
+		// Position
+		$return .= "<h3 class='position'>";
+			$return .= get_hrld_author("hrld_current_position",$staff);	
+			if(hrld_author_has("hrld_staff_semesters",$staff)) {
+				$return .= " &middot; " . _hexa_semesterify(get_hrld_author("hrld_staff_semesters",$staff));
+			}		
+		$return .= "</h3>";
+
+		// Twitter and more:
+
+		if(hrld_author_has("hrld_staff_description",$staff)) {
+			$return .= "<p class='staff-box-more-description'>";
+			$return .= get_hrld_author("hrld_staff_description",$staff);
+			$return .= "</p>";
+		}
+
+		$return .= "<p><a href='mailto:" . get_the_author_meta( "email", $staff ) . "'>" . get_the_author_meta( "email", $staff ) . "</a></p>";
+
+		
+
+		
+		
+		$return .= "</div>";
+		$return .= "<div class='clearfix'></div>";
 		$return .= "</div>";
 		
 	endforeach;
 
-	$return .= "<div class='clearfix'></div>";
 	$return .= "</div>";
 
 	return $return;
@@ -125,6 +109,22 @@ function about_class($classes) {
 } add_filter('body_class','about_class');
 
 
+function _hexa_semesterify($semesters) {
+	switch ($semesters) {
+		case '1':
+			return "1st semester at the Herald";
+			break;
+		case '2':
+			return "2nd semester at the Herald";
+			break;
+		case '3':
+			return "3rd semester at the Herald";
+			break;	
+		default:
+			return $semesters . "th semester at the Herald";
+			break;
+	}
+}
 /**
  * 
  * An old function that when called will list contributors that

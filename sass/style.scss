@@ -11,9 +11,60 @@ Tags: College Media, Editorial, Newspaper.
 Text Domain: exa-child
 */
 
-@import "functions.scss";
-@import "page_revelry.scss";
-@import "article-display-block.scss";
-@import "misc.scss";
+@import "foundations.scss";
 
+
+.staff-container {
+	margin-top:24px;
+}
+.staff-box {
+	padding-top: 18px;
+	padding-bottom: 24px;
+	border-top: 1px solid $greyBorder;
+	img {
+		width: flex(80,300);
+		height: auto;
+		float: left;
+		margin-right: flex(10,300);
+	}
+	.profile {
+		float: left;
+		width: flex(210,300);
+		h2.name {
+			font-size: 21px;
+			font-weight: normal;
+			margin: 0px;
+			padding:0;
+			line-height: 21px;
+			a {
+				color: $greyText;
+				font-size: 14px;
+				padding-left: 10px;
+			}
+		}
+		h3.position {
+			padding:0;
+			margin-top: 12px;
+			color: $blue;
+			font-size: 16px;
+			line-height: 21px;
+			font-weight: bold;
+			a {
+				color: $greyText;
+			}
+		}
+		h3.semesters {
+			color: $greyText;
+			font-size: 16px;
+		}
+	}
+}
+
+@include breakpoint('tablet') {
+	.staff-box {
+		br {
+			visibility: hidden;
+		}
+	}
+}
 
