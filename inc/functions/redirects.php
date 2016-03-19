@@ -60,7 +60,7 @@ function hexa_id_from_mt_url($url) {
         ),
         'post_type' => 'any'
     );
-
+    $postID = null;
     // The Query
     $the_query = new WP_Query( $args );
 
