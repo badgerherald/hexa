@@ -39,7 +39,7 @@ function hexa_dispaystaff( $atts ) {
 		}
 
 		$return .= "<div class='staff-box'>";
-		$muglink = get_wp_user_avatar_src($staff, 'small-thumbnail');
+		$muglink = exa_mug_src($staff, 'small-thumbnail');
 		
 		// Mug
 		$return .= "<img class='mug' src='$muglink' />";

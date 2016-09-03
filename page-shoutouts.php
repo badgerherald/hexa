@@ -10,12 +10,7 @@
 // Set up ads for current page.
 global $DoubleClick;
 
-if( isset( $_REQUEST['sca']))
-	get_header('interstellar'); 
-else
-	get_header('minimal');
 
-get_template_part( 'inc/block', 'leaderboard' );
 ?>
 
 <?php /* The loop */ ?>
@@ -25,9 +20,6 @@ get_template_part( 'inc/block', 'leaderboard' );
 	<?php get_template_part( 'content', 'shoutouts' ); ?>
 
     <div class="clearfix"></div>
-
-    <?php get_template_part('inc/block','billboard'); ?>
-    <?php // get_template_part('inc/block','cover'); ?>
 
     <div class="clearfix"></div>
 

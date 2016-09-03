@@ -1,6 +1,6 @@
 <?php global $DoubleClick ?>
 
-<div class="block taboola-block">
+<div class="container taboola">
 
 	<div class="wrapper">
 	
