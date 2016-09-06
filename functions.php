@@ -36,5 +36,16 @@ function hexa_scripts() {
 }
 add_action('wp_enqueue_scripts', 'hexa_scripts');
 
+/**
+ * Filter banter container classes
+ */
+function hexa_banter_container_classes($classes,$container) {
+	global $post;
+	if($container->name == "headline" && hexa_is_banter()) {
+		$classes .= " banter-headline";
+	}
+	return $classes;
+}
+add_filter("exa_container_classes","hexa_banter_container_classes",10,2);
 
 

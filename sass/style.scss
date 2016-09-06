@@ -14,6 +14,45 @@ Text Domain: exa-child
 @import "foundations.scss";
 
 
+.container.banter-headline {
+	.wrapper {
+		padding-bottom:18px;
+		&:before {
+			content: " ";
+			position: absolute;
+			top: 0px;
+			width: 100%;
+			display: block;
+			height: 18px;
+			border-left: 6px solid $red;
+			border-right: 6px solid $red;
+			border-top: 6px solid $red;
+		}
+		&:after {
+			content: " ";
+			position: absolute;
+			bottom: 0px;
+			width: 100%;
+			display: block;
+			height: 100%;
+			background-image: url("./img/svg/dotted.svg");
+			border-bottom: 1px solid $greyBorder;
+		}
+		.topics,.title,.subhead {
+			padding-left: 30px;
+		}
+		.topics {
+			padding-top: 32px;
+			li {
+				a, span {
+					&.section {
+						background: $red;
+					}
+				}
+			}
+		}
+	}
+}
 .staff-container {
 	margin-top:24px;
 }
