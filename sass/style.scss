@@ -37,6 +37,7 @@ Text Domain: exa-child
 			height: 100%;
 			background-image: url("./img/svg/dotted.svg");
 			border-bottom: 1px solid $greyBorder;
+			z-index: -1;
 		}
 		.topics,.title,.subhead {
 			padding-left: 30px;
