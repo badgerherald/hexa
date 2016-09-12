@@ -113,72 +113,66 @@ Text Domain: exa-child
  * Header Charm
  *
  */
- .header-charm { display: none; }
 
-@include breakpoint('tablet') {
-	.header-charm {
-		display: block;
-		max-width: 440px;
-		text-align: right;
-		font-family: $headline;
-		h3 {
-			font-size: 14px;
-			background: $blue;
-			color: $white;
-			margin:0;
-			display: inline-block;
-			font-weight: normal;
-			padding: 2px 10px;
+.header-charm {
+	max-width: 260px;
+	text-align: right;
+	font-family: $headline;
+	h3 {
+		font-size: 14px;
+		background: $blue;
+		color: $white;
+		
+		margin:0;
+		display: inline-block;
+		font-weight: normal;
+		padding: 2px 10px;
+
+	}
+	.mc4wp-form-fields {
+		position:relative;
+		p {
+			margin: 0; 
+			padding: 0;
 		}
-		.mc4wp-form-fields {
-			position:relative;
-			p {
-				margin: 0; 
-				padding: 0;
-			}
-			input {
-				margin: 0; 
-				padding: 8px;
-				outline: none;
-				background: $white;
-				border: none;
-				font-family: $headline;
-				font-size: 14px;
-				line-height: 14px;
-			}
-			input[type=submit] {
-				padding: 10px;
-				width: 60px;
-				position: absolute;
-				font-family: $icon;
-				color: $blue;
-				background: none;
-				text-align: right;
-				top: 0;
-				right: 0;
-				&:hover {
-					color: $black;
-				}
-			}
-			input[name=EMAIL] {
-				transition: all .25s ease;
-				width:200px;
-				padding-left: 14px;
-				&:focus {
-					transition: all .25s ease;
-					width:260px;
-					border-left: 2px solid $blue;
-				}
-			}
-		}
-		.mc4wp-response p {
+		input {
+			margin: 0; 
+			padding: 8px;
+			outline: none;
+			background: $white;
+			border: none;
 			font-family: $headline;
-			font-weight:bold;
-			color: $black;
-			margin-top: 6px;
-			.emoji {
-				font-size: 18px;
+			font-size: 14px;
+			line-height: 14px;
+		}
+		input[type=submit] {
+			padding: 10px;
+			position: absolute;
+			font-family: $icon;
+			color: $blue;
+			background: none;
+			top: 0;
+			right: 0;
+			&:hover {
+				color: $black;
 			}
 		}
+		input[name=EMAIL] {
+			transition: all .25s ease;
+			width:80%;
+			padding-left: 14px;
+			&:focus {
+				transition: all .25s ease;
+				width:100%;
+				border-left: 2px solid $blue;
+			}
+		}
+
+	}
+	.mc4wp-response p {
+		font-family: $headline;
+		margin-top: 6px;
+		font-weight:bold;
+		color: $blue;
 	}
 }
