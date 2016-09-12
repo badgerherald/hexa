@@ -48,11 +48,3 @@ function hexa_banter_container_classes($classes,$container) {
 	return $classes;
 }
 add_filter("exa_container_classes","hexa_banter_container_classes",10,2);
-
-
-/**
- * Clean up wp-admin for editors
- */
-function 
-
-
