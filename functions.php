@@ -26,7 +26,7 @@ include_once('inc/functions/header-charm.php');
  * 
  */
 function hexa_scripts() {
-    wp_enqueue_style('hexa-style', get_stylesheet_directory_uri().'/style.css', array('exa-style'));
+    wp_enqueue_style('hexa-style', get_stylesheet_directory_uri().'/style.css', array('exa-style'),'v1');
     if (is_page("revelry"))
     {
         wp_enqueue_script("exa-child-revelry-script", get_stylesheet_directory_uri().'/revelry/revelry.js', array('jquery'));
@@ -48,5 +48,11 @@ function hexa_banter_container_classes($classes,$container) {
 	return $classes;
 }
 add_filter("exa_container_classes","hexa_banter_container_classes",10,2);
+
+
+/**
+ * Clean up wp-admin for editors
+ */
+function 
 
 
