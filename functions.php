@@ -18,6 +18,7 @@
 include_once('inc/functions/staff-page.php');
 include_once('inc/functions/ads.php');
 include_once('inc/functions/redirects.php');
+include_once('inc/functions/header-charm.php');
 
 
 /**
