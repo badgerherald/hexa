@@ -1,35 +1,24 @@
-
-
-
 .container.advertise-hero {
-	// Background image:
 	background: #1c78d3 url('./img/ad-hero.png') no-repeat center center;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
 	background-size: cover;
-	// Bottom box shadow:
-	-webkit-box-shadow: inset 0px -85px 120px -15px rgba(28,120,211,1);
-	-moz-box-shadow: inset 0px -85px 120px -15px rgba(28,120,211,1);
-	box-shadow: inset 0px -85px 120px -15px rgba(28,120,211,1);
+	box-shadow: inset 0px -85px 120px -15px rgba(#1c78d3,1);
 	.wrapper {
-		text-align: left;
+		text-align: center;
 		h1 {
 			color:#fff;
 			font-family: 'PT Sans Narrow';
-			padding-top: 42px;
-			font-size:24px;  
+			padding: 42px 0 0 0;
+			font-size:36px;  
 			text-transform: uppercase;
-			margin-bottom: 24px;
-			margin-top: 0;
+			margin: 0 0 24px 0;
 			& > .the {
 				font-family: 'PT Serif', serif;
 				text-transform: lowercase;
-				font-size: .6em;
+				font-size: .6em;				
 				position: relative;
-				bottom: 6px;
+				bottom: 3px;
 				font-style: italic;
-				border-bottom: 4px solid #3c3f78;
+				display: block;
 			}
 		}
 		p {
@@ -41,9 +30,10 @@
 				background: #000;
 				color:#fff;
 				display: inline;
+				padding: 3px 3px;
 			}
 			&.seller {
-				margin-top: 24px;
+				margin-top: 18px;
 				font-style: italic;
 				display: block;
 				& > span {
@@ -58,22 +48,24 @@
 
 .container.advertise-nav {
 	width: 100%;
-	font-family: 'PT Sans Narrow';
 	text-transform: uppercase;
-	font-size: 18px;
-	font-weight: bold;
-	z-index:10;
+	font: bold 18px 'PT Sans Narrow';
+	z-index: 10;
 	background: #1c78d3;
 	padding: 0;
-	margin-bottom: 24px;
+	margin-bottom: 18px;
 	ul {
+		margin: 0 0 24px 0;
+		padding-bottom: 0 0 24px 0;
 		list-style-type: none;
-		margin:0 auto;
-		padding:0;
+		margin: 0 auto;
+		text-align: center;
+		padding: 0;
+		margin-bottom: 18px;
 		li {
 			display: inline-block;
 			margin: 0;
-			float: left;
+			text-align: center;
 			&:last-child a {
 				border-right: 1px solid rgba(white,.2);
 			}
@@ -99,15 +91,9 @@
 				&:hover {
 					background: #18599a;
 				}
-
 			}
 		}
 	}
-}
-
-
-.container.advertise-hero.navonly {
-	height:300px !important;
 }
 
 
@@ -126,7 +112,7 @@
 		}
 	}
 	.container.advertise-hero {
-		height: 600px;
+		height: 500px;
 		.wrapper {
 			text-align: center;
 			h1 {
@@ -134,6 +120,8 @@
 				font-size: 50px;
 				& > .the {
 					bottom:10px;
+					border-bottom: 4px solid #3c3f78;
+					display: inline;
 				}
 			}
 			p { 
@@ -145,11 +133,18 @@
 			}
 		}
 	}
+	.container.advertise-hero.navonly {
+		height: auto;
+		min-height: 200px;
+		.wrapper h1 {
+			padding-top: 80px;
+		}
+	}
 }
 
 @media (min-width: 1060px) {
 	.container.advertise-hero {
-		height: 700px;
+		height: 600px;
 		.wrapper {
 			text-align: center;
 			h1 {
