@@ -22,7 +22,7 @@ function hexa_ad_setup() {
 		$DoubleClick->networkCode = "8653162";
 	} else {
 		// Test networkCode:
-		$DoubleClick->networkCode = "64222555";		// Ask Will Haynes for access.
+		$DoubleClick->networkCode = "64222555";
 	}
 
 	/* breakpoints */
@@ -60,12 +60,12 @@ function _exa_register_content_adslot($content) {
 
 	if ( is_single() ) {
 		
-		$ad = $DoubleClick->get_ad_placement('bhrld.dev-upper-sidekick',$sizes);
-		$ad = "<div class='ad ad-in-content mobile-tablet'>" . $ad . "</div>";
+		$ad = $DoubleClick->get_ad_placement('badgerherald.com-upper-sidekick',$sizes);
+		$ad = "<div class='ad ad-in-content' style='display:none;'>" . $ad . "</div>";
 		$content = exa_insert_after_graph( $ad, $content, 2 );
 
-		$ad2 = $DoubleClick->get_ad_placement('bhrld.dev-lower-sidekick',$sizes);
-		$ad2 = "<div class='ad ad-in-content mobile-tablet'>" . $ad2 . "</div>";
+		$ad2 = $DoubleClick->get_ad_placement('badgerherald.com-lower-sidekick',$sizes);
+		$ad2 = "<div class='ad ad-in-content' style=\"display:none;\">" . $ad2 . "</div>";
 		$content = exa_insert_after_graph( $ad2, $content, 6 );
 
 	}
