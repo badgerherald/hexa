@@ -17,7 +17,7 @@ function hexa_ad_setup() {
 
 	global $DoubleClick;
 
-	if( hrld_is_production() ) {
+	if( true || hrld_is_production() ) {
 		// Production networkCode:
 		$DoubleClick->networkCode = "8653162";
 	} else {
