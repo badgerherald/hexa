@@ -8,6 +8,7 @@ include_once('inc/functions/ads.php');
 include_once('inc/functions/redirects.php');
 include_once('inc/functions/header-charm.php');
 include_once('inc/functions/plugin-wp_nav_menu_extended.php');
+include_once('inc/functions/admin.php');
 
 /**
  * Enqueue hexa scripts and styles.
