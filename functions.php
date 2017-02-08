@@ -10,6 +10,7 @@ include_once('inc/functions/header-charm.php');
 include_once('inc/functions/plugin-wp_nav_menu_extended.php');
 include_once('inc/functions/admin.php');
 include_once('inc/functions/user-management.php');
+include_once('inc/functions/wiki.php');
 
 /**
  * Enqueue hexa scripts and styles.

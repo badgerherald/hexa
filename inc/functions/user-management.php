@@ -10,10 +10,9 @@
 
 
 /**
- * Enque styles used for this plugin.
- *
+ * Set roles & capabilitities for Herald staff
  */
-function hrld_set_roles() {
+function _hexa_users_set_roles() {
 
 	$contributor = array(									// CONTRIBUTORS CAN:
 					'read'         				=> true,	// + read posts.
@@ -21,8 +20,8 @@ function hrld_set_roles() {
 					'edit_posts'   				=> true,	// + edit posts.
 				);
 
-	$associates = $contributor 
-				+ array(									// ASSOCIATES can do everything STAFF CONTRIBUTORS can, plus:
+	$associates = 
+		$contributor + array(								// ASSOCIATES can do everything STAFF CONTRIBUTORS can, plus:
 					'edit_others_posts'			=> true,	// + edit others posts
 				);
 
@@ -32,8 +31,8 @@ function hrld_set_roles() {
 	$editor_role = get_role('editor');						// EDITORS get everthing the default WordPress editors
 	$editors = $editor_role->capabilities;					// can do.
 
-	$management = $editors 
-				+ array(									// ASSOCIATES can do everything STAFF WRITERS can, plus:
+	$management = 
+		$editors + array(									// MANAGEMENT can do everything EDITORS can, plus:
 					'create_users'			=> true,		// + create users
 					'edit_users'			=> true,		// + edit users
 					'list_users'			=> true,		// + list users
@@ -55,5 +54,5 @@ function hrld_set_roles() {
 	add_role('management','Management',$management);
 
 }
-register_activation_hook( 'hrld-setup/hrld-setup.php', 'hrld_set_roles' );
-add_action('init', 'hrld_set_roles');
+add_action( 'after_setup_theme', '_hexa_users_set_roles' );
+//add_action( 'init', '_hexa_users_set_roles' );
