@@ -1,5 +1,10 @@
 <?php
 
+include_once( 'lib/Parsedown.php' );
+
+if( !defined( 'HEXA_WIKI_DOCUMENT_ROOT' ) ) {
+	define( 'HEXA_WIKI_DOCUMENT_ROOT', __DIR__ . '/wiki/' );
+}
 /**
  *
  */
@@ -35,8 +40,16 @@ function hexa_wiki_content() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 
-	echo "<div class='wrap'>";
-	echo "<h2>Wiki</h2>";
-	echo "<p>This is our new wiki!</p>";
-	echo "</div>"; // wrap.
+	$markdown = hexa_wiki_get_markdown('test');
+
+	$Parsedown = new Parsedown();
+	echo $Parsedown->text($markdown);
+}
+
+function hexa_wiki_get_markdown($slug) {
+	return file_get_contents( HEXA_WIKI_DOCUMENT_ROOT . $slug . '.md' );
+}
+
+function hexa_wiki_title_to_slug($title) {
+	return sanitize_title($title);
 }
