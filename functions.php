@@ -17,7 +17,7 @@ function hexa_scripts() {
 	$mtime = filemtime(dirname(__FILE__) . '/js/hexa.js') ?: "";	
 	wp_enqueue_script('hexa-script', get_stylesheet_directory_uri() . '/js/hexa.js',array('jquery'),$mtime,true);
 
-    $mtime = file_exists(dirname(__FILE__) . '/style.css') ?: "";
+    $mtime = filemtime(dirname(__FILE__) . '/style.css') ?: "";
     wp_enqueue_style('hexa-style', get_stylesheet_directory_uri().'/style.css', array('exa-style'),$mtime);
 }
 add_action('wp_enqueue_scripts', 'hexa_scripts');
