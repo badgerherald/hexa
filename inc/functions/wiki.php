@@ -27,11 +27,25 @@ function _hexa_writers_plugin_enqueue() {
  * 
  */
 function _hexa_writers_admin_menu() {
-	$page_hook_suffix = add_submenu_page( 'index.php', 'Wiki', 'Wiki', 'edit_posts', 'find_writers', 'hexa_wiki_content' );
+	$page_hook_suffix = add_submenu_page( 'index.php', 'Wiki', 'Wiki', 'edit_posts', 'wiki', 'hexa_wiki_content' );
 	add_action('admin_print_scripts-' . $page_hook_suffix, '_hexa_writers_plugin_enqueue');
 }
 add_action( 'admin_menu', '_hexa_writers_admin_menu' );
 
+
+function hexa_wiki_links($active) {
+	$topics = scandir( HEXA_WIKI_DOCUMENT_ROOT, SCANDIR_SORT_DESCENDING );
+	$wikiSlug = 'index.php?page=wiki&topic=';
+	echo "<ul>";
+	foreach ($topics as $topic) {
+		if ( !( substr( $topic, 0, 1 ) === '.' ) && !( substr( $topic, 0, 1 ) === '_' ) )  { 
+			$topicUrl = admin_url( $wikiSlug . $topic );
+			$class = $active === $topic ? 'active' : '';
+			echo "<li><a href='$topicUrl' class='$class'>$topic</a></li>";
+		}
+	}
+	echo "</ul>";
+}
 /**
  *
  */
@@ -40,14 +54,26 @@ function hexa_wiki_content() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 
-	$markdown = hexa_wiki_get_markdown('test');
+	$topic = array_key_exists('topic', $_GET) ? $_GET['topic'] : "welcome.md";
+	$markdown = hexa_wiki_get_markdown($topic);
 
+	// Topics:
+	echo "<div class='topic-bar'>";
+	hexa_wiki_links($topic); 
+	echo "</div>";
+
+	// Markdown:
+	echo "<div class='wikicard markdown-body'>";
 	$Parsedown = new Parsedown();
+	echo "<input type='text' value='$topic' />";
+	echo "<div class='slug'>$topic</div>";
 	echo $Parsedown->text($markdown);
+	echo "</div>";
+
 }
 
 function hexa_wiki_get_markdown($slug) {
-	return file_get_contents( HEXA_WIKI_DOCUMENT_ROOT . $slug . '.md' );
+	return file_get_contents( HEXA_WIKI_DOCUMENT_ROOT . $slug );
 }
 
 function hexa_wiki_title_to_slug($title) {
