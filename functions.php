@@ -68,7 +68,7 @@ function hexa_editorial_report() {
 	$ret .= "| y | t | title |\n";
 	$ret .= "|--:|--:|-------|\n";
 	while ($the_query->have_posts()) : $the_query->the_post();
-		$tPageviews = $AnalyticBridge->metric(get_the_id(),'ga:pageviews') ?: 0;
+		$tPageviews = $AnalyticBridge->metric(get_the_id(),'ga:pageviews','today') ?: 0;
 		$yPageviews = $AnalyticBridge->metric(get_the_id(),'ga:pageviews','yesterday') ?: 0;
 		$title = get_the_title();
 		$ret .= "| $yPageviews | $tPageviews | $title |\n";
