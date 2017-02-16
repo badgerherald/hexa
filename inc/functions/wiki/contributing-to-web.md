@@ -39,4 +39,8 @@ We also use GitHub to [track issues and future development](https://github.com/b
 
 ### Vagrant
 
+When we want to push changes to the site, we need to develop and test them locally first. This involves running your own server and hosting your own badgerherald.com. Servers are hard to manage, so we use Vagrant to do it for us. 
+
+**What you need to know:** Instructions on setting up Herald's Vagrant are [here](https://github.com/badgerherald/bhrld.dev). They assume you're comfortable with your computer's command line and understand git.
+
 

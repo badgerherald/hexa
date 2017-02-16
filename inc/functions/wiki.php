@@ -27,7 +27,7 @@ function _hexa_writers_plugin_enqueue() {
  * 
  */
 function _hexa_writers_admin_menu() {
-	$page_hook_suffix = add_submenu_page( 'index.php', 'Wiki', 'Wiki', 'edit_posts', 'wiki', 'hexa_wiki_content' );
+	$page_hook_suffix = add_submenu_page( 'index.php', 'Wiki', 'Wiki', 'edit_users', 'wiki', 'hexa_wiki_content' );
 	add_action('admin_print_scripts-' . $page_hook_suffix, '_hexa_writers_plugin_enqueue');
 }
 add_action( 'admin_menu', '_hexa_writers_admin_menu' );
@@ -50,13 +50,13 @@ function hexa_wiki_links($active) {
  *
  */
 function hexa_wiki_content() {
-	if ( !current_user_can( 'edit_posts' ) )  {
+	if ( !current_user_can( 'edit_users' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 
 	$topic = array_key_exists('topic', $_GET) ? $_GET['topic'] : "welcome.md";
 	$markdown = hexa_wiki_get_markdown($topic);
-
+	$editorialRpt = hexa_editorial_report();
 	// Topics:
 	echo "<div class='topic-bar'>";
 	hexa_wiki_links($topic); 
@@ -65,9 +65,12 @@ function hexa_wiki_content() {
 	// Markdown:
 	echo "<div class='wikicard markdown-body'>";
 	$Parsedown = new Parsedown();
-	echo "<input type='text' value='$topic' />";
-	echo "<div class='slug'>$topic</div>";
-	echo $Parsedown->text($markdown);
+	echo "<tt class='slug'>$topic</tt>";
+	if( $topic === "editorial-report.md" ) {
+		echo $Parsedown->text($editorialRpt); 
+	} else {
+		echo $Parsedown->text($markdown);
+	}
 	echo "</div>";
 
 }
