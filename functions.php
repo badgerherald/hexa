@@ -56,7 +56,7 @@ function hexa_editorial_report() {
 	$yesterday = array( 'date_query' => array(
 										array(
 											'after' => 'yesterday',  // or '-2 days'
-											'before' => 'yesterday',  // or '-2 days'
+											'before' => 'today',  // or '-2 days'
 											'inclusive' => true,
 										),
 									),
