@@ -53,18 +53,18 @@ function hexa_editorial_report() {
 		'order' => 'DESC',
 		'posts_per_page' => 20,
 	);
-	$today = array( 'date_query' => array(
+	$yesterday = array( 'date_query' => array(
 										array(
-											'after' => '300 days ago',  // or '-2 days'
-											'before' => '299 days ago',  // or '-2 days'
+											'after' => 'yesterday',  // or '-2 days'
+											'before' => 'yesterday',  // or '-2 days'
 											'inclusive' => true,
 										),
 									),
 								);
-	$yesterday = array( 'date_query' => array(
+	$today = array( 'date_query' => array(
 										array(
-											'after' => '303 days ago',  // or '-2 days'
-											'before' => '302 days ago',  // or '-2 days'
+											'after' => 'today',  // or '-2 days'
+											'before' => 'now',  // or '-2 days'
 											'inclusive' => true,
 										),
 									),
