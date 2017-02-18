@@ -37,7 +37,7 @@ function _hexa_wiki_plugin_enqueue() {
  * 
  */
 function _hexa_wiki_admin_menu() {
-	$page_hook_suffix = add_submenu_page( 'index.php', 'Wiki', 'Wiki', 'edit_users', 'wiki', 'hexa_wiki_content' );
+	$page_hook_suffix = add_submenu_page( 'index.php', 'Editorial Report', 'Editorial Report', 'edit_users', 'wiki', 'hexa_wiki_content' );
 	add_action('admin_print_scripts-' . $page_hook_suffix, '_hexa_wiki_plugin_enqueue');
 }
 add_action( 'admin_menu', '_hexa_wiki_admin_menu' );
@@ -67,7 +67,7 @@ function hexa_wiki_content() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 
-	$topic = array_key_exists('topic', $_GET) ? $_GET['topic'] : "welcome.md";
+	$topic = array_key_exists('topic', $_GET) ? $_GET['topic'] : "editorial-report.md";
 	$markdown = hexa_wiki_get_markdown($topic);
 	$editorialRpt = hexa_editorial_report();
 	// Topics:
