@@ -9,30 +9,42 @@ if( !defined( 'HEXA_WIKI_DOCUMENT_ROOT' ) ) {
  *
  */
 function hexa_wiki_init() {
-	/* Register our script. */
+	// javascript:
 	wp_register_script( '_hexa_wiki_script', get_stylesheet_directory_uri() . '/js/admin/wiki.js' , array( 'jquery' ), 1, false );
-	wp_register_style(  '_hexa_wiki_style' , get_stylesheet_directory_uri() . '/css/admin/wiki.css' );
+
+	// css:
+	$wikiStylePath = '/css/admin/wiki.css';
+	$wikiAnalyticsStylePath = '/css/admin/wiki-analytics.css';
+
+	$mtime = file_exists( get_stylesheet_directory() . $wikiStylePath ) ? filemtime( get_stylesheet_directory() . $wikiStylePath ) : "";
+	wp_register_style(  '_hexa_wiki_style' , get_stylesheet_directory_uri() . $wikiStylePath, array(), $mtime );
+
+	$mtime = file_exists( get_stylesheet_directory() . $wikiAnalyticsStylePath ) ? filemtime( get_stylesheet_directory() . $wikiAnalyticsStylePath ) : "";
+	wp_register_style(  '_hexa_wiki_analytics_style' , get_stylesheet_directory_uri() . $wikiAnalyticsStylePath, array(), $mtime );
 }
 add_action( 'admin_init', 'hexa_wiki_init' );
 
 /**
- * @author Will Haynes
+ *
  */
-function _hexa_writers_plugin_enqueue() {
+function _hexa_wiki_plugin_enqueue() {
 	wp_enqueue_script( '_hexa_wiki_script' );
 	wp_enqueue_style( '_hexa_wiki_style' );
+	wp_enqueue_style( '_hexa_wiki_analytics_style' );
 }
 
 /**
  * 
  */
-function _hexa_writers_admin_menu() {
+function _hexa_wiki_admin_menu() {
 	$page_hook_suffix = add_submenu_page( 'index.php', 'Wiki', 'Wiki', 'edit_users', 'wiki', 'hexa_wiki_content' );
-	add_action('admin_print_scripts-' . $page_hook_suffix, '_hexa_writers_plugin_enqueue');
+	add_action('admin_print_scripts-' . $page_hook_suffix, '_hexa_wiki_plugin_enqueue');
 }
-add_action( 'admin_menu', '_hexa_writers_admin_menu' );
+add_action( 'admin_menu', '_hexa_wiki_admin_menu' );
 
-
+/**
+ * 
+ */
 function hexa_wiki_links($active) {
 	$topics = scandir( HEXA_WIKI_DOCUMENT_ROOT, SCANDIR_SORT_DESCENDING );
 	$wikiSlug = 'index.php?page=wiki&topic=';
@@ -46,6 +58,7 @@ function hexa_wiki_links($active) {
 	}
 	echo "</ul>";
 }
+
 /**
  *
  */
@@ -67,18 +80,25 @@ function hexa_wiki_content() {
 	$Parsedown = new Parsedown();
 	echo "<tt class='slug'>$topic</tt>";
 	if( $topic === "editorial-report.md" ) {
+		echo "<div class='analytic-report'>";
 		echo $Parsedown->text($editorialRpt); 
+		echo "</div>";
 	} else {
 		echo $Parsedown->text($markdown);
 	}
 	echo "</div>";
-
 }
 
+/**
+ * 
+ */
 function hexa_wiki_get_markdown($slug) {
 	return file_get_contents( HEXA_WIKI_DOCUMENT_ROOT . $slug );
 }
 
+/**
+ * 
+ */
 function hexa_wiki_title_to_slug($title) {
 	return sanitize_title($title);
 }
