@@ -39,7 +39,7 @@ function _hexa_users_set_roles() {
 					'promote_users'			=> true,		// + promote users
 					'remove_users'			=> true,		// + remove users
 					'edit_theme_options'	=> true,		// + edit menus and stuff
-					'customize'				=> true,		// + give access to customizer
+					'customize'				=> true,		// + access theme customizer
 					'manage_options'		=> true,		// + manage options
 				);
 	
@@ -55,4 +55,4 @@ function _hexa_users_set_roles() {
 
 }
 add_action( 'after_setup_theme', '_hexa_users_set_roles' );
-//add_action( 'init', '_hexa_users_set_roles' );
+add_action( 'init', '_hexa_users_set_roles' );
