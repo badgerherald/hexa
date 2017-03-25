@@ -5,6 +5,7 @@ global $AnalyticBridge;
 /**
  * Includes
  */
+
 include( dirname( __FILE__ ) . '/inc/functions/staff-page.php');
 include( dirname( __FILE__ ) . '/inc/functions/ads.php');
 include( dirname( __FILE__ ) . '/inc/functions/redirects.php');
@@ -12,6 +13,7 @@ include( dirname( __FILE__ ) . '/inc/functions/header-charm.php');
 include( dirname( __FILE__ ) . '/inc/functions/plugin-wp_nav_menu_extended.php');
 include( dirname( __FILE__ ) . '/inc/functions/admin.php');
 include( dirname( __FILE__ ) . '/inc/functions/wiki.php');
+include( dirname( __FILE__ ) . '/inc/functions/user-management.php');
 
 /**
  * Enqueue hexa scripts and styles.
