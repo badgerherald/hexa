@@ -1,0 +1,20 @@
+.markdown-body .analytic-report table {
+  margin-left: -13px;
+}
+
+.markdown-body .analytic-report table th,
+.markdown-body .analytic-report table td {
+  padding: 6px 13px;
+  border: none;
+}
+
+.markdown-body .analytic-report table tr {
+  background-color: transparent;
+  border-top: none;
+}
+
+
+.markdown-body .analytic-report table tbody tr:hover{
+  background-color: #f3f6fa;
+  border-top: none;
+}
