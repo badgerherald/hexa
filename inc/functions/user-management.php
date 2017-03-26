@@ -54,4 +54,4 @@ function _hexa_users_set_roles() {
 	add_role('management','Management',$management);
 
 }
-add_action( 'init', '_hexa_users_set_roles' );
+add_action( 'after_setup_theme', '_hexa_users_set_roles' );
