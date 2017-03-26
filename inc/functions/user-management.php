@@ -46,14 +46,6 @@ function _hexa_users_set_roles() {
 					'customize'				=> true,		// + access theme customizer
 					'manage_options'		=> true,		// + manage options
 				);
-	
-	remove_role('contributor'); 				// For development.
-	remove_role('associates');
-	remove_role('staffwriter');
-	remove_role('copy');
-	remove_role('management');
-	remove_role('alumni');
-	remove_role('author');
 
 	add_role('alumni','Alumni',$alumni);
 	add_role('staffwriter','Staff Writer',$contributor);
@@ -62,5 +54,4 @@ function _hexa_users_set_roles() {
 	add_role('management','Management',$management);
 
 }
-add_action( 'after_setup_theme', '_hexa_users_set_roles' );
 add_action( 'init', '_hexa_users_set_roles' );
