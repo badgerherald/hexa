@@ -14,6 +14,10 @@
  */
 function _hexa_users_set_roles() {
 
+	$alumni = array(										// ALUMNI CAN:
+					'read'         				=> true,	// + read posts.
+				);
+
 	$contributor = array(									// CONTRIBUTORS CAN:
 					'read'         				=> true,	// + read posts.
 					'delete_posts' 				=> true,	// + delete posts (their own). 
@@ -45,10 +49,14 @@ function _hexa_users_set_roles() {
 	
 	remove_role('contributor'); 				// For development.
 	remove_role('associates');
+	remove_role('staffwriter');
 	remove_role('copy');
 	remove_role('management');
+	remove_role('alumni');
+	remove_role('author');
 
-	add_role('contributor','Contributor',$contributor);
+	add_role('alumni','Alumni',$alumni);
+	add_role('staffwriter','Staff Writer',$contributor);
 	add_role('associates','Associate',$associates);
 	add_role('copy','Copy',$copy);
 	add_role('management','Management',$management);
