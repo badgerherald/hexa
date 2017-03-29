@@ -48,6 +48,12 @@ function _hexa_users_set_roles() {
 					'manage_options'		=> true,		// + manage options
 				);
 
+	remove_role('alumni');
+	remove_role('staffwriter');
+	remove_role('associates');
+	remove_role('copy');
+	remove_role('management');
+
 	add_role('alumni','Alumni',$alumni);
 	add_role('staffwriter','Staff Writer',$contributor);
 	add_role('associates','Associate',$associates);
@@ -55,4 +61,5 @@ function _hexa_users_set_roles() {
 	add_role('management','Management',$management);
 
 }
+add_action( 'init', '_hexa_users_set_roles' );
 add_action( 'after_setup_theme', '_hexa_users_set_roles' );
