@@ -22,6 +22,7 @@ function _hexa_users_set_roles() {
 					'read'         				=> true,	// + read posts.
 					'delete_posts' 				=> true,	// + delete posts (their own). 
 					'edit_posts'   				=> true,	// + edit posts.
+					'level_1' 					=> true,	// @see https://core.trac.wordpress.org/ticket/16841
 				);
 
 	$associates = 
@@ -32,7 +33,7 @@ function _hexa_users_set_roles() {
 	$copy = $contributor;									// COPY can do everything CONTRIBUTORS can,
 															// just with a different name.
 	
-	$editor_role = get_role('editor');						// EDITORS get everthing the default WordPress editors
+	$editor_role = get_role('editor');						// EDITORS get everything the default WordPress editors
 	$editors = $editor_role->capabilities;					// can do.
 
 	$management = 
