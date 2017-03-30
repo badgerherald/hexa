@@ -46,13 +46,8 @@ function _hexa_users_set_roles() {
 					'edit_theme_options'	=> true,		// + edit menus and stuff
 					'customize'				=> true,		// + access theme customizer
 					'manage_options'		=> true,		// + manage options
+					'level_1' 				=> true,	// @see https://core.trac.wordpress.org/ticket/16841
 				);
-
-	remove_role('alumni');
-	remove_role('staffwriter');
-	remove_role('associates');
-	remove_role('copy');
-	remove_role('management');
 
 	add_role('alumni','Alumni',$alumni);
 	add_role('staffwriter','Staff Writer',$contributor);
@@ -61,5 +56,4 @@ function _hexa_users_set_roles() {
 	add_role('management','Management',$management);
 
 }
-add_action( 'init', '_hexa_users_set_roles' );
 add_action( 'after_setup_theme', '_hexa_users_set_roles' );
