@@ -1,0 +1,155 @@
+.container.dirty-bird {
+	background: white;
+	background: -moz-linear-gradient(top, $lightgrey 0%, white 100px);
+	background: -webkit-linear-gradient(top, $lightgrey 0%, white 100px);
+	background: linear-gradient(to bottom, $lightgrey 0%, white 100px); 
+	.dirty-logo {
+		width:200px;
+		height:auto;
+		margin-top: 20px;
+	}
+	.dirty-bird {
+		width: 120px;
+		height:auto;
+		position:absolute;
+		top:-36px;
+		right:20px;
+	}
+	.topics {
+		margin: 0;
+		padding: 0;
+		font-family: $headline;
+		clear: both;
+		li {
+			float: left;
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			a, span {
+				display: block;
+				padding: 6px 12px;
+				background: white;
+				&.section {
+					background: $red;
+					color: white;
+					font-weight:700;
+				}
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	.byline a {
+		color: $darkgrey;
+		font-weight: bold;
+		text-transform: uppercase;
+		&:hover {
+			color: $black;
+		}
+	}
+	.mug-box {
+		width: 40px;
+		margin-right: 10px;
+		margin-top: -3px;
+		position: relative;
+		float: left;
+		img {
+			width: 100%;
+		}
+	}
+	.tweet-button, .facebook-button{
+		font-size: 14px;
+		padding:3px 9px;
+		font-family: 'pt sans';
+		color: #fff;
+		margin-left: 6px;
+		float:right;
+		position: relative;
+		&:hover {
+			background: $black;
+		}
+	} 
+	.tweet-button {
+		background: #059FF5;
+		padding-left:27px;
+		&:before {
+			content: 't';
+			font-family: $icon;
+			padding-right: 5px;
+			font-size: 12px;
+			position:absolute;
+			left: 9px;
+		}
+	}
+	.facebook-button {
+		background: #4965A2;
+		padding-left:27px;
+		&:before {
+			content: 'f';
+			font-family: $icon;
+			padding-right: 5px;
+			font-size: 12px;
+			position:absolute;
+			left: 9px;
+		}
+	}
+	.hero img {
+		width: 100%;
+		height: auto;
+		margin-top: 20px;
+	}
+	.headline,.article-content	 {
+		h1 {
+			font-family: serif;
+			font-size: 21px;
+		}
+		position:relative;
+		margin-top: 20px;
+		background: white;
+		color: black;
+		-webkit-box-shadow: 0px 6px 10px -2px rgba(0,0,0,0.1);
+		-moz-box-shadow: 0px 6px 10px -2px rgba(0,0,0,0.1);
+		box-shadow: 0px 6px 10px -2px rgba(0,0,0,0.1);
+		margin-bottom: 30px;
+		padding: 10px;
+	}
+	hr {
+		background:black;
+		border: 0;
+		height: 4px;
+	}
+}
+
+@include breakpoint('tablet') {
+	.container.dirty-bird {
+			.dirty-logo {
+		width:240px;
+		height:auto;
+		margin-top: 20px;
+	}
+	.dirty-bird {
+		width: 180px;
+		height:auto;
+		position:absolute;
+		top:-36px;
+		right:20px;
+	}
+		.headline h1 {
+			font-size: 36px;
+		}
+	}
+}
+@include breakpoint('desktop') {
+	.container.dirty-bird {
+				.article-content {
+			width: 68%;
+			float:left;
+		}
+		.sidebar {
+			width: 30%;
+			margin-left: 2%;
+			float:left;
+		}
+	}
+}

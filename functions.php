@@ -14,6 +14,7 @@ include( dirname( __FILE__ ) . '/inc/functions/plugin-wp_nav_menu_extended.php')
 include( dirname( __FILE__ ) . '/inc/functions/admin.php');
 include( dirname( __FILE__ ) . '/inc/functions/wiki.php');
 include( dirname( __FILE__ ) . '/inc/functions/user-management.php');
+include( dirname( __FILE__ ) . '/inc/functions/dirty-bird.php');
 
 /**
  * Enqueue hexa scripts and styles.

@@ -18,7 +18,6 @@ function _hexa_admin_section_filters() {
 }
 add_action('admin_menu', '_hexa_admin_section_filters');
 
-
 /**
  * This is a little gross, but re-arranges admin menus
  */
@@ -43,8 +42,8 @@ function _hexa_admin_reorder_submenu_pages( $menu_ord ) {
 		}
 	}
 	
-	_hexa_admin_reorder_move_page_to_top('edit.php','edit.php');
 	_hexa_admin_reorder_move_page_to_top('edit.php','post-new.php');
+	_hexa_admin_reorder_move_page_to_top('edit.php','edit.php');
 
     return $menu_ord;
 }
