@@ -70,6 +70,26 @@ function _hexa_admin_reorder_move_page_to_top($slug, $page) {
 }
 
 
+/**
+ * Changes wordpress outbound email sender to The Badger Herald.
+ *
+ * @since v0.6
+ */
+function exa_mail_name( $email ){
+  return get_bloginfo( 'name' ); // new sender name using site name.
+}
+add_filter( 'wp_mail_from_name', 'exa_mail_name' );
+
+/**
+ * Changes wordpress outbound email sender address to web@badgerherald.com
+ *
+ * @since v0.6
+ */
+function exa_mail_address( $email ){
+  return str_replace('wordpress','web',$email); // new sender email account.
+}
+add_filter( 'wp_mail_from', 'exa_mail_address' );
+
 
 
 
