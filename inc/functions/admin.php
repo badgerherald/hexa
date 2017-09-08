@@ -4,7 +4,7 @@
  * Adds quick links to Posts submenu to filter by category.
  */
 function _hexa_admin_section_filters() {
-	$categorySlugs = array( 'news', 'opinion', 'artsetc', 'sports', 'banter', 'visuals' );
+	$categorySlugs = array( 'news', 'opinion', 'artsetc', 'sports', 'banter', 'photo', 'features' );
 	$bullet = '&nbsp;&#8226; ';
 
 	foreach( $categorySlugs as $slug ) {
