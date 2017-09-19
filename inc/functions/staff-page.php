@@ -96,7 +96,7 @@ function about_class($classes) {
 	
 	global $post;
 
-	if($post->post_parent == 0 && $post->post_name != "about") 
+	if( is_object($post) && $post->post_parent == 0 && $post->post_name != "about") 
 		return $classes;
 
   	$post_data = get_post($post->post_parent);
