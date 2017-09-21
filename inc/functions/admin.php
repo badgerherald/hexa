@@ -25,10 +25,10 @@ add_action('admin_menu', '_hexa_admin_section_filters');
 function _hexa_admin_reorder_submenu_pages( $menu_ord ) {
     global $submenu;
 
-    // Dirty, but shift WordPress's index by 20 to make room for ours at top
+    // Dirty, but shift WordPress's index by 25 to make room for ours at top
 	foreach ($submenu as $submenu_index => $menu) {
 		foreach ($menu as $menu_index => $item) {
-			$submenu[$submenu_index][$menu_index + 20] = $item;
+			$submenu[$submenu_index][$menu_index + 25] = $item;
 			unset($submenu[$submenu_index][$menu_index]);
 		}
 	}
@@ -56,7 +56,7 @@ function _hexa_admin_reorder_move_page_to_top($slug, $page) {
 		return;
 	}
 
-	$top_index = 19;
+	$top_index = 24;
 	while( $top_index > 0 && array_key_exists($top_index,$submenu[$slug]) ) {
 		$top_index-=1;
 	}
