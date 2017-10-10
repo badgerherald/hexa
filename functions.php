@@ -16,6 +16,25 @@ include( dirname( __FILE__ ) . '/inc/functions/wiki.php');
 include( dirname( __FILE__ ) . '/inc/functions/user-management.php');
 include( dirname( __FILE__ ) . '/inc/functions/dirty-bird.php');
 
+
+/**
+ * This is to fix a problem somewhere in our stack. From what I can tell
+ * the php process/worker is never told it's running https. Basically
+ * 
+ * $_SERVER['https']='on'; should be set but never is.
+ * 
+ * Well, this will fix that I guess.
+ * 
+ */
+function _hexa_enforce_https_in_template_urls($url) {
+	if (strpos($url,"bhrld.dev")) {
+		return preg_replace("/^http:/i", "https:", $url);
+	}
+	return $url;
+}
+add_filter('stylesheet_directory_uri','_hexa_enforce_https_in_template_urls');
+add_filter('template_directory_uri','_hexa_enforce_https_in_template_urls');
+
 /**
  * Enqueue hexa scripts and styles.
  */

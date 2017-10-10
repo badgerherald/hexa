@@ -46,14 +46,21 @@ function _hexa_users_set_roles() {
 					'edit_theme_options'	=> true,		// + edit menus and stuff
 					'customize'				=> true,		// + access theme customizer
 					'manage_options'		=> true,		// + manage options
-					'level_1' 				=> true,	// @see https://core.trac.wordpress.org/ticket/16841
+					'exa_edit_masthead'		=> true,		// + edit our masthead
+					'level_1' 				=> true,		// @see https://core.trac.wordpress.org/ticket/16841
 				);
 
 	add_role('alumni','Alumni',$alumni);
 	add_role('staffwriter','Staff Writer',$contributor);
 	add_role('associates','Associate',$associates);
 	add_role('copy','Copy',$copy);
+	    $role = get_role( 'administrator' );
+
+    // This only works, because it accesses the class instance.
+    // would allow the author to edit others' posts for current theme only
+    $role->add_cap( 'exa_edit_masthead' );
 	add_role('management','Management',$management);
 
 }
 add_action( 'after_setup_theme', '_hexa_users_set_roles' );
+add_action( 'init', '_hexa_users_set_roles', 0 );

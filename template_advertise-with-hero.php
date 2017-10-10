@@ -9,7 +9,7 @@
 
 get_header();
 
-exa_container('menu-search-bar');
+exa_container('nameplate');
 exa_container('advertise-hero');
 
 ?>
