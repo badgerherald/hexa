@@ -15,13 +15,14 @@
 function _hexa_users_set_roles() {
 
 	$alumni = array(										// ALUMNI CAN:
-					'read'         				=> true,	// + read posts.
+					'read'         				=> true,	// + read posts
 				);
 
 	$contributor = array(									// CONTRIBUTORS CAN:
-					'read'         				=> true,	// + read posts.
-					'delete_posts' 				=> true,	// + delete posts (their own). 
-					'edit_posts'   				=> true,	// + edit posts.
+					'read'         				=> true,	// + read posts
+					'delete_posts' 				=> true,	// + delete posts (their own)
+					'edit_posts'   				=> true,	// + edit posts
+					'upload_files'				=> true,	// + upload files
 					'level_1' 					=> true,	// @see https://core.trac.wordpress.org/ticket/16841
 				);
 
@@ -31,13 +32,18 @@ function _hexa_users_set_roles() {
 				);
 
 	$copy = $contributor;									// COPY can do everything CONTRIBUTORS can,
-															// just with a different name.
+															// just with a different name
 	
 	$editor_role = get_role('editor');						// EDITORS get everything the default WordPress editors
 	$editors = $editor_role->capabilities;					// can do.
 
+	unset($editors['publish_pages']);						// except this stuff...
+	unset($editors['publish_posts']);
+	unset($editors['delete_published_posts']);
+	unset($editors['delete_published_pages']);
+
 	$management = 
-		$editors + array(									// MANAGEMENT can do everything EDITORS can, plus:
+		$editor_role->capabilities + array(					// MANAGEMENT can do everything EDITORS can, plus:
 					'create_users'			=> true,		// + create users
 					'edit_users'			=> true,		// + edit users
 					'list_users'			=> true,		// + list users
