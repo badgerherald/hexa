@@ -27,7 +27,7 @@ include( dirname( __FILE__ ) . '/inc/functions/dirty-bird.php');
  * 
  */
 function _hexa_enforce_https_in_template_urls($url) {
-	if (strpos($url,"badgerherald.com")) {
+	if (strpos($url,"badgerherald.com") && !strpos($url,"staging.badgerherald.com")) {
 		return preg_replace("/^http:/i", "https:", $url);
 	}
 	return $url;
