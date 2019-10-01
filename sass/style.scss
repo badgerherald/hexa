@@ -15,6 +15,47 @@ Text Domain: exa-child
 @import "advertise-hero.scss";
 @import "pop_posts.scss";
 @import "dirty-bird.scss";
+@import "_donate.scss";
+
+.stripe-campaign-ticker {
+	font-family: 'Noto Serif', Oalatino, Georgia, Serif;
+	font-weight: bold;
+	color: #a6b5bd;
+	font-style: italic;
+	margin-bottom:36px;
+	margin-top:36px;
+	.stripe-campaign-ticker-strip-inner {
+		background: #2379d0;
+		height:36px;
+		position:relative;
+		&:after {
+			content: '';
+			position: absolute;
+			height: 38px;
+			background: #2379d0;
+			width:2px;
+			right: 0;
+			top:0px;
+		}
+	}
+	.stripe-campaign-ticker-strip-outer {
+		background: #fff;
+		margin-bottom: 12px;
+	}
+	.stripe-campaign-number {
+		font-family: 'PT Sans Narrow', Helvetica, Arial, Sans-Serif;
+		color:#000;
+	}
+}
+
+@include breakpoint(tablet) {
+	.stripe-campaign-ticker {
+		margin-left:80px;
+	}
+	.sc-payment-btn, .sc-form-group {
+		margin-left:80px;
+	}
+}
 
 .container.banter-headline {
 	.wrapper {

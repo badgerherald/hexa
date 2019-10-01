@@ -13,7 +13,7 @@
  * 
  * @see https://github.com/inn/DoubleClick-for-Wordpress
  */
-function hexa_ad_setup() {
+function hexa_dfw_setup() {
 
 	global $DoubleClick;
 
@@ -33,7 +33,7 @@ function hexa_ad_setup() {
 	$DoubleClick->register_breakpoint('xl',			array('minWidth'=>1220,'maxWidth'=>9999));
 
 }
-add_action('dfw_setup','hexa_ad_setup');
+add_action('dfw_setup','hexa_dfw_setup');
 
 /**
  * Filters content and ads an adspot for phone and tablet devices.
@@ -107,3 +107,13 @@ if( !class_exists('DoubleClick') && !is_admin() ) {
 	}
 	$DoubleClick = new DoubleClick();
 }
+
+/** 
+ * Enqueue flytedesk script
+ */
+function hexa_flytedesk_footer_enqueue() {
+    //echo '<p>This is inserted at the bottom</p>';
+}
+add_action( 'wp_footer', 'hexa_flytedesk_footer_enqueue' );
+
+

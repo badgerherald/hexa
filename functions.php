@@ -15,7 +15,7 @@ include( dirname( __FILE__ ) . '/inc/functions/admin.php');
 include( dirname( __FILE__ ) . '/inc/functions/wiki.php');
 include( dirname( __FILE__ ) . '/inc/functions/user-management.php');
 include( dirname( __FILE__ ) . '/inc/functions/dirty-bird.php');
-
+include( dirname( __FILE__ ) . '/inc/functions/donate.php');
 
 /**
  * This is to fix a problem somewhere in our stack. From what I can tell
@@ -42,6 +42,8 @@ function hexa_scripts() {
 	$mtime = filemtime(dirname(__FILE__) . '/js/hexa.js') ?: "";	
 	wp_enqueue_script('hexa-script', get_stylesheet_directory_uri() . '/js/hexa.js',array('jquery'),$mtime,true);
 
+	wp_enqueue_script('', 'https://js.stripe.com/v3/',null,null,false);
+	
     $mtime = filemtime(dirname(__FILE__) . '/style.css') ?: "";
     wp_enqueue_style('hexa-style', get_stylesheet_directory_uri().'/style.css', array('exa-style'),$mtime);
 }
