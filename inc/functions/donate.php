@@ -2,13 +2,13 @@
 
 /* stripe config DO NOT COMMIT!! */
 require_once('lib/stripe-php-7.0.2/init.php');
-\Stripe\Stripe::setApiKey("sk_test_4V2re3usbUZ0VcySXE3eGT5Y00DdsCMATo");
+\Stripe\Stripe::setApiKey(STRIPE_SK);
 
 define( 'WOOCOMMERCE_CHECKOUT', true );
 
 define( 'HEXA_DONATION_REOCCURANCE_ONCE', 0);
-define( 'HEXA_DONATION_REOCCURANCE_SEMESTERLY', 1);
-define( 'HEXA_DONATION_REOCCURANCE_MONTHLY', 2);
+define( 'HEXA_DONATION_REOCCURANCE_SEMESTERLY', 2);
+define( 'HEXA_DONATION_REOCCURANCE_MONTHLY', 12);
 
 /**
  * Donation shortcode
@@ -27,6 +27,10 @@ function hexa_process_donation( WP_REST_Request $request ) {
 
 	$email = $request->get_param( 'email' );
 	$phone = $request->get_param( 'phone' );
+
+	$first = $request->get_param( 'firstName' );
+	$last = $request->get_param( 'lastName' );
+
 	$address = array(
 		"street" => $request->get_param( 'street' ),
 		"apt" => $request->get_param( 'apt' ),
@@ -35,37 +39,87 @@ function hexa_process_donation( WP_REST_Request $request ) {
 		"zip" => $request->get_param( 'zip' )
 	);
 
+	$reoccurance = $request->get_param( 'reoccurance' );
+
 	$contact_info = array(
 		"address" => $address,
 		"email" => $email,
 		"phone" => $phone
 	);
 
-	$reoccurance = HEXA_DONATION_REOCCURANCE_SEMESTERLY;
-    $amountInCents = $amount * 100;
+	$amountInCents = $amount * 100;
+	
+	$customer = \Stripe\Customer::create([
+		'source' => $token,
+		'email' => $email,
+	]);
 
-	if($reoccuring) {
-		$customer = \Stripe\Customer::create([
-    		'source' => $token,
-    		'email' => $email,
+	if(HEXA_DONATION_REOCCURANCE_ONCE == $reoccurance) {
+		$charge = \Stripe\Charge::create([
+        	"amount" => $amountInCents,
+        	"currency" => "usd",
+        	//"source" => $token, // obtained with Stripe.js
+			"description" => "Donation to The Badger Herald",
+			"customer" => $customer->id
 		]);
+	} else if(HEXA_DONATION_REOCCURANCE_SEMESTERLY == $reoccurance) {
+		\Stripe\Subscription::create([
+			"customer" => $customer->id,
+			"items" => [
+			  [
+				"plan" => STRIPE_SEMESTER_PLAN,
+				"quantity" => $amountInCents // charged at 0.01¢ each 
+			  ],
+			]
+		  ]);
+	} else if(HEXA_DONATION_REOCCURANCE_MONTHLY == $reoccurance) {
+		\Stripe\Subscription::create([
+			"customer" => $customer->id,
+			"items" => [
+			  [
+				"plan" => STRIPE_MONTHLY_PLAN,
+				"quantity" => $amountInCents // charged at 0.01¢ each 
+			  ],
+			]
+		  ]);
 	}
 
-    $charge = \Stripe\Charge::create([
-        "amount" => $amountInCents,
-        "currency" => "usd",
-        "source" => $token, // obtained with Stripe.js
-		"description" => "Donation to The Badger Herald",
-		"customer" => $reoccuring ? $customer->id : null
-	]);
-	
 	if(true) {
-		hexa_donate_save_donation_from_form( $email, $amount, "asdf" ,$reoccuring ? $customer->id : null, $contact_info );
+		hexa_donate_save_donation_from_form( $email, $amount, "asdf" , null, $contact_info );
+		hexa_donate_send_reciept( $first + " " + $last, $email, $amount, $reoccurance );
 		wp_send_json(array(
 			"success" => true
 		));
 	} 
 
+}
+
+function hexa_donate_send_reciept( $name, $email, $amount, $reoccurance ) {
+	$frequency = "One Time";
+	if($reoccurance == 2) {
+		$frequency = "Monthly";
+	} else if($reoccurance == 12) {
+		$frequency == "Each Semester";
+	}
+	$headers = 'From: editor@badgerherald.com' . "\r\n" .
+    'Reply-To: editor@badgerherald.com' . "\r\n" .
+	'X-Mailer: PHP/' . phpversion();
+	
+	$message = "
+	
+	$name, \ 
+
+	Thank you for your donation to The Badger Herald! \
+
+	<b>Amount</b>: \$$amount
+	<b>Frequency</b>: {{}}
+	
+	The Badger Herald is a 501c(3). All donations tax deductable. EIN 39-1129947.
+
+	The Badger Herald
+	
+	";
+	wp_mail( $email, "Thank you for your donation to The Badger Herald!", $message, $headers, null );
 }
 
 function hexa_donate_save_donation_from_form( $email, $amount, $transaction_id, $frequency, $contact_info ) {
@@ -78,31 +132,9 @@ function hexa_donate_save_donation_from_form( $email, $amount, $transaction_id, 
 
 	$index = "";
 
-	if( $frequency > 0 ) {
-		$index = hexa_donate_create_reoccurance( $user_id, $frequency );
-	}
-
 	$contact_index = hexa_donate_save_contact_info( $user_id, $contact_info );
 	hexa_donation_save_charge( $user_id, $amount, $index, $transaction_id, $contact_index );
 
-}
-
-function hexa_donate_create_reoccurance( $user_id, $frequency ) {
-	// todo, verify $user_id
-
-	$key = 'hexa_donation_reoccurances';
-
-	$reoccurances = get_user_meta( $user_id, $key, true );
-
-	$reoccurances[] = array(
-		'created' => new Date(),
-		'frequency' => $frequency,
-		'stripe_customer_id' => $customer_id
-	);
-
-	update_user_meta( $user_id, $key, $reoccurances );
-
-	return count($reoccurances);
 }
 
 function hexa_donation_save_charge( $user_id, $amount, $reoccurance_index, $transaction_id, $contact_index ) {
