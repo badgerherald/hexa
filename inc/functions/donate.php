@@ -25,19 +25,26 @@ function hexa_process_donation( WP_REST_Request $request ) {
 
 	// todo, nonce check
 
+	$anonymous = $request->get_param( 'anonymous' );
+	$comment = $request->get_param( 'comment' );
+	
 	$email = $request->get_param( 'email' );
 	$phone = $request->get_param( 'phone' );
 
 	$first = $request->get_param( 'firstName' );
 	$last = $request->get_param( 'lastName' );
 
-	$address = array(
+	$finalYear = $request->get_param( 'comment' );
+
+	$name = $first . ' ' . $last;
+
+	$address = [
 		"street" => $request->get_param( 'street' ),
 		"apt" => $request->get_param( 'apt' ),
 		"city" => $request->get_param( 'country' ),
 		"country" => $request->get_param( 'country' ),
 		"zip" => $request->get_param( 'zip' )
-	);
+	];
 
 	$reoccurance = $request->get_param( 'reoccurance' );
 
@@ -49,48 +56,89 @@ function hexa_process_donation( WP_REST_Request $request ) {
 
 	$amountInCents = $amount * 100;
 	
-	$customer = \Stripe\Customer::create([
-		'source' => $token,
-		'email' => $email,
-	]);
-
-	if(HEXA_DONATION_REOCCURANCE_ONCE == $reoccurance) {
-		$charge = \Stripe\Charge::create([
-        	"amount" => $amountInCents,
-        	"currency" => "usd",
-        	//"source" => $token, // obtained with Stripe.js
-			"description" => "Donation to The Badger Herald",
-			"customer" => $customer->id
+	$error = "";
+	try {
+		$customer = \Stripe\Customer::create([
+			'source' => $token,
+			'email' => $email,
+			'name' => $name,
+			'phone' => $phone,
+			'metadata' => $address
 		]);
-	} else if(HEXA_DONATION_REOCCURANCE_SEMESTERLY == $reoccurance) {
-		\Stripe\Subscription::create([
-			"customer" => $customer->id,
-			"items" => [
-			  [
-				"plan" => STRIPE_SEMESTER_PLAN,
-				"quantity" => $amountInCents // charged at 0.01¢ each 
-			  ],
-			]
-		  ]);
-	} else if(HEXA_DONATION_REOCCURANCE_MONTHLY == $reoccurance) {
-		\Stripe\Subscription::create([
-			"customer" => $customer->id,
-			"items" => [
-			  [
-				"plan" => STRIPE_MONTHLY_PLAN,
-				"quantity" => $amountInCents // charged at 0.01¢ each 
-			  ],
-			]
-		  ]);
-	}
+	
+		if(HEXA_DONATION_REOCCURANCE_ONCE == $reoccurance) {
+			$charge = \Stripe\Charge::create([
+				"amount" => $amountInCents,
+				"currency" => "usd",
+				"description" => "Donation to The Badger Herald",
+				"customer" => $customer->id,
+				"metadata" => ["anonymous" => $anonymous, "comment" => $comment, 'graduated' => $finalYear]
+			]);
+		} else if(HEXA_DONATION_REOCCURANCE_SEMESTERLY == $reoccurance) {
+			\Stripe\Subscription::create([
+				"metadata" => ["anonymous" => $anonymous, "comment" => $comment, 'graduated' => $finalYear],
+				"customer" => $customer->id,
+				"items" => [
+				  [
+					"plan" => STRIPE_SEMESTER_PLAN,
+					"quantity" => $amountInCents // charged at 0.01¢ each 
+				  ],
+				]
+			  ]);
+		} else if(HEXA_DONATION_REOCCURANCE_MONTHLY == $reoccurance) {
+			\Stripe\Subscription::create([
+				"metadata" => ["anonymous" => $anonymous, "comment" => $comment, 'graduated' => $finalYear],
+				"customer" => $customer->id,
+				"items" => [
+				  [
+					"plan" => STRIPE_MONTHLY_PLAN,
+					"quantity" => $amountInCents // charged at 0.01¢ each 
+				  ],
+				]
+			  ]);
+		}
+	  } catch(\Stripe\Exception\CardException $e) {
+		// Since it's a decline, \Stripe\Exception\CardException will be caught
+		//echo 'Status is:' . $e->getHttpStatus() . '\n';
+		//echo 'Type is:' . $e->getError()->type . '\n';
+		//echo 'Code is:' . $e->getError()->code . '\n';
+		// param is '' in this case
+		//echo 'Param is:' . $e->getError()->param . '\n';
+		$error = $e->getError()->message;
+		//echo 'Message is:' . $e->getError()->message . '\n';
+	  } catch (\Stripe\Exception\RateLimitException $e) {
+		// Too many requests made to the API too quickly
+		$error = "Something wen't wrong";
+	  } catch (\Stripe\Exception\InvalidRequestException $e) {
+		// Invalid parameters were supplied to Stripe's API
+		$error = $e->getError()->message;
+	  } catch (\Stripe\Exception\AuthenticationException $e) {
+		// Authentication with Stripe's API failed
+		// (maybe you changed API keys recently)
+		$error = "Something went wrong";
+	  } catch (\Stripe\Exception\ApiConnectionException $e) {
+		// Network communication with Stripe failed
+		$error = "Something went wrong";
+	  } catch (\Stripe\Exception\ApiErrorException $e) {
+		// Display a very generic error to the user, and maybe send
+		// yourself an email
+		$error = "Something went wrong";
+	  } catch (Exception $e) {
+		// Something else happened, completely unrelated to Stripe
+	  }
 
-	if(true) {
+	if($error == "") {
 		hexa_donate_save_donation_from_form( $email, $amount, "asdf" , null, $contact_info );
 		hexa_donate_send_reciept( $first + " " + $last, $email, $amount, $reoccurance );
 		wp_send_json(array(
 			"success" => true
 		));
-	} 
+	}  else {
+		wp_send_json(array(
+			"success" => false,
+			"error" => $error
+		));
+	}
 
 }
 
@@ -105,19 +153,16 @@ function hexa_donate_send_reciept( $name, $email, $amount, $reoccurance ) {
     'Reply-To: editor@badgerherald.com' . "\r\n" .
 	'X-Mailer: PHP/' . phpversion();
 	
-	$message = "
-	
-	$name, \ 
+	$message = "$name, 
 
-	Thank you for your donation to The Badger Herald! \
+	Thank you for your donation to The Badger Herald! 
 
-	<b>Amount</b>: \$$amount
-	<b>Frequency</b>: {{}}
+	Amount: \$$amount
+	Frequency: $frequency
 	
 	The Badger Herald is a 501c(3). All donations tax deductable. EIN 39-1129947.
 
 	The Badger Herald
-	
 	";
 	wp_mail( $email, "Thank you for your donation to The Badger Herald!", $message, $headers, null );
 }
